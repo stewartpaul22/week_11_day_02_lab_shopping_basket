@@ -1,5 +1,6 @@
-var ShoppingBasket = function(){
+var ShoppingBasket = function(discountCard){
   this.items = [];
+  this.discountCard = discountCard;
 };
 
 ShoppingBasket.prototype.addItem = function (item) {
@@ -22,7 +23,12 @@ ShoppingBasket.prototype.calculateTotal = function () {
   for (let item of this.items) {
     total += item.price;
   }
-  return total;
+  if((total > 20.00) && (this.discountCard === true)){
+    return parseFloat((total.toFixed(2))* 0.85);
+  } else if (total > 20.00){
+    return parseFloat((total.toFixed(2))* 0.9);
+  }
+  return parseFloat(total.toFixed(2));
 };
 
 module.exports = ShoppingBasket;
